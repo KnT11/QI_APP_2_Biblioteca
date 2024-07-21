@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Tela Inicial',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        // Removido o colorScheme para usar o esquema de cores padrão (que inclui branco como cor primária)
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'MANGAS.MOB'),
@@ -29,19 +29,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool _isSettingsClicked = false;
-
-  void _toggleSettingsColor() {
-    setState(() {
-      _isSettingsClicked = !_isSettingsClicked;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFFFF4817),
+        backgroundColor: const Color(0xFFFF4817), // Cor laranja para a barra de navegação
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(15),
@@ -52,12 +44,12 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.settings,
-                color: _isSettingsClicked ? Colors.blue : Colors.white,
+                color: Colors.white,
               ),
               onPressed: () {
-                _toggleSettingsColor();
+                // Implementação para as configurações se necessário
               },
             ),
             const Text(
@@ -88,95 +80,49 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      body: Row(
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 4,
-                  shadowColor: const Color(0xFFFF4817), // Adiciona sombra laranja ao Card
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Titulo',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Color(0xFFFF4817)),
-                        ),
-                        Expanded(child: Container()),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: FloatingActionButton(
-                            onPressed: () {},
-                            tooltip: 'Editar',
-                            backgroundColor: const Color(0xFFFF4817),
-                            foregroundColor: Colors.white,
-                            mini: true,
-                            child: const Icon(Icons.edit),
-                          ),
-                        ),
-                      ],
-                    ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 4,
+          shadowColor: const Color(0xFFFF4817), // Adiciona sombra laranja ao Card
+          child: Container(
+            width: 200,
+            height: 200,
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const Text(
+                  'Titulo',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Color(0xFFFF4817)),
+                ),
+                Expanded(child: Container()),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      // Navega para a tela de edição ao pressionar o botão de editar
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EditMANGA()),
+                      );
+                    },
+                    tooltip: 'Editar',
+                    backgroundColor: const Color(0xFFFF4817),
+                    foregroundColor: Colors.white,
+                    mini: true,
+                    child: const Icon(Icons.edit),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-          Expanded(
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                  elevation: 4,
-                  shadowColor: const Color(0xFFFF4817), // Adiciona sombra laranja ao Card
-                  child: Container(
-                    width: 200,
-                    height: 200,
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Text(
-                          'Titulo',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 20, color: Color(0xFFFF4817)),
-                        ),
-                        Expanded(child: Container()),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: FloatingActionButton(
-                            onPressed: () {},
-                            tooltip: 'Editar',
-                            backgroundColor: const Color(0xFFFF4817),
-                            foregroundColor: Colors.white,
-                            mini: true,
-                            child: const Icon(Icons.edit),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -184,6 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 class AddMANGA extends StatelessWidget {
   const AddMANGA({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -277,7 +224,7 @@ class AddMANGA extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: Color(0xFFFF4817)),
                   decoration: InputDecoration(
-                    labelText: 'Gênero',
+                    labelText: 'Gêneros', // Alterado de 'Gênero' para 'Gêneros'
                     labelStyle: const TextStyle(color: Color(0xFFFF4817)),
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(color: Color(0xFFFF4817)),
@@ -314,6 +261,115 @@ class AddMANGA extends StatelessWidget {
                     ),
                   ),
                   child: const Text('Salvar'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EditMANGA extends StatelessWidget {
+  const EditMANGA({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFFF4817),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        title: const Text(
+          'Editar MANGÁ',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
+      body: Center(
+        child: Card(
+          margin: const EdgeInsets.all(20.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          elevation: 4,
+          shadowColor: const Color(0xFFFF4817), // Adiciona sombra laranja ao Card
+          child: Container(
+            width: 300,
+            padding: const EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(height: 20),
+                const Text(
+                  'Editar MANGÁ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Color(0xFFFF4817)),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  initialValue: 'Nome do Mangá Atual', // Valor inicial para edição
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Color(0xFFFF4817)),
+                  decoration: InputDecoration(
+                    labelText: 'Nome do Mangá',
+                    labelStyle: const TextStyle(color: Color(0xFFFF4817)),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFFF4817)),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  initialValue: 'Autor Atual', // Valor inicial para edição
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Color(0xFFFF4817)),
+                  decoration: InputDecoration(
+                    labelText: 'Autor',
+                    labelStyle: const TextStyle(color: Color(0xFFFF4817)),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFFF4817)),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  initialValue: 'Gêneros Atual', // Valor inicial para edição
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Color(0xFFFF4817)),
+                  decoration: InputDecoration(
+                    labelText: 'Gêneros', // Alterado de 'Gênero' para 'Gêneros'
+                    labelStyle: const TextStyle(color: Color(0xFFFF4817)),
+                    border: OutlineInputBorder(
+                      borderSide: const BorderSide(color: Color(0xFFFF4817)),
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xFFFF4817),
+                    minimumSize: const Size(double.infinity, 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      side: const BorderSide(color: Color(0xFFFF4817)),
+                    ),
+                  ),
+                  child: const Text('Salvar Alterações'),
                 ),
               ],
             ),
